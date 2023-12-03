@@ -4,7 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:online_shop_app/clean/home/clean_home_controller.dart';
 import 'package:online_shop_app/components/category_list_view.dart';
 import 'package:online_shop_app/components/product_item.dart';
-import 'package:online_shop_app/components/product_list_item.dart';
 
 class CleanHomeView extends GetView<CleanHomeController> {
   const CleanHomeView({Key? key}) : super(key: key);

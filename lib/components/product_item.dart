@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:online_shop_app/clean/product/clean_product_controller.dart';
-import 'package:online_shop_app/clean/product/clean_product_view.dart';
-import 'package:online_shop_app/components/product_detail.dart';
 
 class ProductItem extends StatelessWidget {
   const ProductItem(

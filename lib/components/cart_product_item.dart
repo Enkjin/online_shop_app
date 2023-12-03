@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:online_shop_app/components/product_detail.dart';
 
 class CartProductItem extends StatelessWidget {
   const CartProductItem(
@@ -8,7 +7,8 @@ class CartProductItem extends StatelessWidget {
       required this.id,
       required this.title,
       required this.src,
-      required this.price, required this.count});
+      required this.price,
+      required this.count});
   final int id;
   final double price;
   final String title;
@@ -28,22 +28,16 @@ class CartProductItem extends StatelessWidget {
         '\$$price',
         style: GoogleFonts.lato(color: Colors.red, fontSize: 18.0),
       ),
-      trailing:  Text(
+      trailing: Text(
         'x $count',
         style: GoogleFonts.lato(fontSize: 18.0),
-        ),
+      ),
       leading: Image.network(
         src,
         height: 100.0,
         width: 100.0,
       ),
-      onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => ProductDetail(productId: id),
-            ));
-      },
+      onTap: () {},
     );
   }
 }

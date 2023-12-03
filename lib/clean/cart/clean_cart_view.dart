@@ -40,7 +40,7 @@ class CleanCartView extends GetView<CleanCartController> {
               height: 50,
               child: FilledButton(
                 onPressed: () {},
-                child: Text('Pay \$${controller.calculatedNetPay}'),
+                child: Text('Pay \$${controller.netPay.value}'),
               ),
             ),
           )

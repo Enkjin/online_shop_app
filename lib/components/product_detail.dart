@@ -1,12 +1,9 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/instance_manager.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'package:online_shop_app/clean/cart/clean_cart_controller.dart';
-import 'package:online_shop_app/controller/cart_controller.dart';
-import 'package:online_shop_app/pages/cart_page.dart';
 
 class ProductDetail extends StatefulWidget {
   const ProductDetail({super.key, required this.productId});
@@ -183,7 +180,7 @@ class _ProductDetailsPageState extends State<ProductDetail> {
             ),
             FilledButton(
                 onPressed: () {
-                  Get.put(CleanCartController());
+                  Get.put(CleanCartController(), permanent: true);
                   final cleancartcontroller = Get.find<CleanCartController>();
                   productDetails['count'] = buttonCount;
                   cleancartcontroller.addToCart(productDetails);

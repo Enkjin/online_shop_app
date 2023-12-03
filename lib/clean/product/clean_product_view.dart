@@ -3,8 +3,6 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:online_shop_app/clean/cart/clean_cart_controller.dart';
 import 'package:online_shop_app/clean/product/clean_product_controller.dart';
-import 'package:online_shop_app/controller/cart_controller.dart';
-import 'package:online_shop_app/pages/cart_page.dart';
 
 class CleanProductView extends GetView<CleanProductController> {
   const CleanProductView({Key? key}) : super(key: key);
@@ -31,7 +29,7 @@ class CleanProductView extends GetView<CleanProductController> {
                 color: Colors.deepPurple,
               ),
               onPressed: () {
-                Get.put(CleanCartController());
+                Get.put(CleanCartController(), permanent: true);
                 final cleancartcontroller = Get.find<CleanCartController>();
                 Get.toNamed('/cart');
               },
@@ -119,6 +117,7 @@ class CleanProductView extends GetView<CleanProductController> {
                           Get.find<CleanCartController>();
                       controller.productDetails.value['buttonCount'] =
                           controller.buttonCount.value;
+                      print('buttoncountis${controller.buttonCount.value}');
                       cleancartcontroller
                           .addToCart(controller.productDetails.value);
                       controller.buttonCount.value = 0;
