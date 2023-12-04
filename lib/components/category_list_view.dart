@@ -3,11 +3,14 @@ import 'package:online_shop_app/components/category_list_item.dart';
 
 class CategoryListView extends StatelessWidget {
   const CategoryListView(
-      {Key? key, required this.categories, required this.onCategorySelected})
+      {Key? key,
+      required this.categories,
+      required this.onCategorySelected,
+      required this.selectedCategoryTitle})
       : super(key: key);
   final List<String> categories;
   final Function(String) onCategorySelected;
-
+  final String selectedCategoryTitle;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -18,12 +21,12 @@ class CategoryListView extends StatelessWidget {
         physics: AlwaysScrollableScrollPhysics(),
         itemBuilder: (context, index) {
           return CategoryListItem(
-            title: categories[index],
-            imageUr: 'https://picsum.photos/id/${index + 100}/100/100',
-            onTap: () {
-              onCategorySelected(categories[index]);
-            },
-          );
+              title: categories[index],
+              imageUr: 'https://picsum.photos/id/${index + 100}/100/100',
+              onTap: () {
+                onCategorySelected(categories[index]);
+              },
+              isSelected: categories[index] == selectedCategoryTitle);
         },
       ),
     );

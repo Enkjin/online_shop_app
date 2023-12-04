@@ -3,28 +3,41 @@ import 'package:google_fonts/google_fonts.dart';
 
 class CategoryListItem extends StatelessWidget {
   const CategoryListItem(
-      {Key? key, required this.title, this.onTap, required this.imageUr})
+      {Key? key,
+      required this.title,
+      this.onTap,
+      required this.imageUr,
+      this.isSelected = false})
       : super(key: key);
 
   final String title;
   final void Function()? onTap;
   final String imageUr;
+  final bool isSelected;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: onTap,
         child: Container(
-          height: 120,
+          height: 100,
           width: 120,
           alignment: Alignment.center,
           padding: EdgeInsets.symmetric(horizontal: 10),
           child: Column(
             children: <Widget>[
-              ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: Image(
-                  image: NetworkImage(imageUr),
+              Container(
+                decoration: BoxDecoration(
+                  border: isSelected
+                      ? Border.all(color: Colors.deepPurple, width: 2)
+                      : null,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(10),
+                  child: Image(
+                    image: NetworkImage(imageUr),
+                  ),
                 ),
               ),
               const SizedBox(

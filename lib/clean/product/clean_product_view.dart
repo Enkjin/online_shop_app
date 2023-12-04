@@ -22,19 +22,49 @@ class CleanProductView extends GetView<CleanProductController> {
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 15),
-            child: IconButton(
-              icon: const Icon(
-                Icons.shopping_cart,
-                size: 36,
-                color: Colors.deepPurple,
-              ),
-              onPressed: () {
-                Get.put(CleanCartController(), permanent: true);
-                final cleancartcontroller = Get.find<CleanCartController>();
-                Get.toNamed('/cart');
+            child: InkWell(
+              onTap: () {
+                Get.toNamed('/cart'); // Navigate to the cart page
               },
+              child: Stack(
+                alignment: Alignment.topRight,
+                children: [
+                  const Icon(
+                    Icons.shopping_cart,
+                    size: 36,
+                    color: Colors.deepPurple,
+                  ),
+                  // Use Obx to reactively update the item count
+                  Obx(() {
+                    final cartController = Get.find<CleanCartController>();
+                    var itemCount = cartController
+                        .cartItemCount.value; // Get the current item count
+                    return itemCount > 0
+                        ? Container(
+                            padding: const EdgeInsets.all(2),
+                            decoration: const BoxDecoration(
+                              color: Colors.red,
+                              shape: BoxShape.circle,
+                            ),
+                            constraints: const BoxConstraints(
+                              minWidth: 16,
+                              minHeight: 16,
+                            ),
+                            child: Text(
+                              itemCount.toString(), // Display the item count
+                              style: const TextStyle(
+                                color: Colors.white,
+                                fontSize: 10,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                          )
+                        : Container(); // Empty container when there are no items
+                  }),
+                ],
+              ),
             ),
-          )
+          ),
         ],
       ),
       body: Obx(() {
@@ -111,20 +141,22 @@ class CleanProductView extends GetView<CleanProductController> {
                 ),
                 const SizedBox(width: 20),
                 FilledButton(
-                    onPressed: () {
-                      Get.put(CleanCartController(), permanent: true);
-                      final cleancartcontroller =
-                          Get.find<CleanCartController>();
-                      controller.productDetails.value['buttonCount'] =
-                          controller.buttonCount.value;
-                      print('buttoncountis${controller.buttonCount.value}');
-                      cleancartcontroller
-                          .addToCart(controller.productDetails.value);
-                      controller.buttonCount.value = 0;
-                      controller.totalPrice.value = 0.0;
-                      controller.isTextshown.value =
-                          !controller.isTextshown.value;
-                    },
+                    onPressed: controller.buttonCount.value > 0
+                        ? () {
+                            final cleancartcontroller =
+                                Get.find<CleanCartController>();
+                            controller.productDetails.value['buttonCount'] =
+                                controller.buttonCount.value;
+                            print(
+                                'buttoncountis${controller.buttonCount.value}');
+                            cleancartcontroller
+                                .addToCart(controller.productDetails.value);
+                            controller.buttonCount.value = 0;
+                            controller.totalPrice.value = 0.0;
+                            controller.isTextshown.value =
+                                !controller.isTextshown.value;
+                          }
+                        : null,
                     child: controller.isTextshown.value
                         ? Text(
                             'Add to cart',

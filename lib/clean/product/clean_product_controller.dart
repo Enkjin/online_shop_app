@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
+import 'package:online_shop_app/clean/model/product.dart';
 
 class CleanProductController extends GetxController {
   Rx<Map<String, dynamic>> productDetails = Rx<Map<String, dynamic>>({});
@@ -9,13 +10,23 @@ class CleanProductController extends GetxController {
   final RxDouble totalPrice = 0.0.obs;
   RxInt productId = 0.obs;
   RxBool isTextshown = true.obs;
+// important
+  @override
+  void onInit() {
+    super.onInit();
+    final arguments = Get.arguments;
+    if (arguments != null && arguments is Map) {
+      productId.value = arguments['productId'];
+    }
+  }
 
   void fetchProductDetails(int productId) async {
     try {
       final response = await http
           .get(Uri.parse('https://fakestoreapi.com/products/$productId'));
       if (response.statusCode == 200) {
-        productDetails.value = jsonDecode(response.body);
+        Product product = Product.fromJson(jsonDecode(response.body));
+        productDetails.value = product.toMap();
       } else {
         throw Exception('Failed to get product details');
       }

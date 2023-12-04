@@ -35,9 +35,8 @@ class ProductItem extends StatelessWidget {
         width: 100.0,
       ),
       onTap: () {
-        Get.put(CleanProductController());
-        Get.find<CleanProductController>().setProductId(id);
-        Get.toNamed('/product');
+        //important
+        Get.toNamed('/product', arguments: {"productId": id});
       },
     );
   }

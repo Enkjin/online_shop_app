@@ -6,19 +6,16 @@ import 'package:http/http.dart' as http;
 class CleanHomeController extends GetxController {
   RxList<String> titles = <String>[].obs;
   RxList<Map<String, dynamic>> allProducts = <Map<String, dynamic>>[].obs;
-
   RxBool loading = false.obs;
 
-  String currentCategory = '';
+  RxString currentCategory = ''.obs;
 
   @override
   onInit() {
     super.onInit();
     fetchCategories();
-
-    loading.value = true;
-    fetchProductsForCategory(currentCategory);
-    loading.value = false;
+    fetchProductsForCategory(currentCategory.value);
+    updateCurrentCategory(currentCategory.value);
   }
 
   Future<void> fetchCategories() async {
@@ -57,7 +54,7 @@ class CleanHomeController extends GetxController {
     }
   }
 
-  String get getCurrentCategory {
-    return currentCategory;
+  void updateCurrentCategory(String newTitle) {
+    currentCategory.value = newTitle;
   }
 }
